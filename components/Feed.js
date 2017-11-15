@@ -5,7 +5,7 @@ import Article from './Article';
 import SourceHeader from './SourceHeader';
 
 const Feed = ({ dataSource }) => (
-  <List>
+  <List containerStyle={{ marginTop: 0 }}>
     <ListView
       dataSource={dataSource}
       renderRow={rowData => <Article {...rowData} />}
