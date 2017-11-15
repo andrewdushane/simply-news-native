@@ -4,11 +4,13 @@ import { List } from 'react-native-elements';
 import Article from './Article';
 import SourceHeader from './SourceHeader';
 
-const Feed = ({ sections, colors }) => (
+const Feed = ({ sections, colors, openArticleDetail }) => (
   <List containerStyle={{ marginTop: 0 }}>
     <SectionList
       sections={sections}
-      renderItem={({ item }) => <Article {...item} {...colors} />}
+      renderItem={({ item }) => (
+        <Article {...item} {...colors} onPress={openArticleDetail(item.link)} />
+      )}
       renderSectionHeader={({ section }) => <SourceHeader {...section} />}
     />
   </List>

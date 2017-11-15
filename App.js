@@ -1,9 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
-import Home from './components/Home';
+import Navigator from './components/Navigator';
 
-export default () => (
-  <View>
-    <Home />
-  </View>
-);
+export default () => <Navigator />;

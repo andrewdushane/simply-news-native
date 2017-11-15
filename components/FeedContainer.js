@@ -1,9 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import xml from 'react-native-xml2js';
+import { sortBy } from 'lodash';
 import feedData from '../data/feed';
 import parseFeed from '../utils/parseFeed';
 import Feed from './Feed';
+
+const updateFeed = (feed, source, raw) =>
+  sortBy(
+    [
+      ...feed,
+      {
+        ...source,
+        articles: parseFeed(raw),
+      },
+    ],
+    ['name'],
+  );
 
 class FeedContainer extends React.Component {
   state = { feed: [], sections: [] };
@@ -18,13 +31,7 @@ class FeedContainer extends React.Component {
               return;
             }
             this.setState(prevState => {
-              const feed = [
-                ...prevState.feed,
-                {
-                  ...source,
-                  articles: parseFeed(parsed),
-                },
-              ];
+              const feed = updateFeed(prevState.feed, source, parsed);
               return {
                 feed,
                 sections: feed.map(section => ({
@@ -42,7 +49,13 @@ class FeedContainer extends React.Component {
     });
   }
   render() {
-    return <Feed sections={this.state.sections} colors={this.props.colors} />;
+    return (
+      <Feed
+        sections={this.state.sections}
+        colors={this.props.colors}
+        openArticleDetail={this.props.openArticleDetail}
+      />
+    );
   }
 }
 

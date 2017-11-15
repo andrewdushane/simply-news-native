@@ -26,7 +26,11 @@ export default class Home extends React.Component {
           toggleTheme={this.toggleTheme}
           colors={colors}
         />
-        <FeedContainer colors={colors} />
+        <FeedContainer
+          colors={colors}
+          openArticleDetail={uri => () =>
+            this.props.navigation.navigate('ArticleView', { uri })}
+        />
       </View>
     );
   }
