@@ -1,15 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import Header from './components/Header';
-import FeedContainer from './components/FeedContainer';
+import Home from './components/Home';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View>
-        <Header />
-        <FeedContainer />
-      </View>
-    );
-  }
-}
+export default () => (
+  <View>
+    <Home />
+  </View>
+);

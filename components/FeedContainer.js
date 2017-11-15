@@ -61,7 +61,9 @@ class FeedContainer extends React.Component {
     });
   }
   render() {
-    return <Feed dataSource={this.state.dataSource} />;
+    return (
+      <Feed dataSource={this.state.dataSource} colors={this.props.colors} />
+    );
   }
 }
 

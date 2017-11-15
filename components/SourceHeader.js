@@ -6,6 +6,7 @@ const SourceHeader = ({ name }) => (
     containerStyle={{ backgroundColor: 'black' }}
     titleStyle={{ color: 'white' }}
     title={name}
+    hideChevron
   />
 );
 
