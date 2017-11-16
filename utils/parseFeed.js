@@ -38,11 +38,20 @@ const formatDate = flowRight(
   getDatePublished,
 );
 
+const createUniqueKey = article =>
+  `${getDatePublished(article)}-${truncate(
+    scrubText(getTitle(article), {
+      length: 2,
+      separator: ' ',
+    }),
+  )}`;
+
 const getArticleInfo = article => ({
   title: formatTitle(article),
   description: formatDescription(article),
   datePublished: formatDate(article),
   link: getLink(article),
+  key: createUniqueKey(article),
 });
 
 export default flowRight(
