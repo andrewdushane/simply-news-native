@@ -1,7 +1,6 @@
 import React from 'react';
 import { SectionList } from 'react-native';
 import { List } from 'react-native-elements';
-import styled from 'styled-components/native';
 import Article from './Article';
 import SourceHeader from './SourceHeader';
 
