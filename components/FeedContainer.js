@@ -6,20 +6,19 @@ import feedData from '../data/feed';
 import parseFeed from '../utils/parseFeed';
 import Feed from './Feed';
 
-const updateFeed = (feed, source, raw) =>
-  sortBy(
-    [
-      ...feed,
-      {
-        ...source,
-        articles: parseFeed(raw),
-      },
-    ],
-    ['name'],
-  );
+const updateFeed = (feed, source, raw) => ({
+  ...feed,
+  [source.id]: {
+    ...source,
+    data: parseFeed(raw),
+    key: source.id,
+  },
+});
+
+const feedToSections = feed => sortBy(Object.values(feed), ['name']);
 
 class FeedContainer extends React.Component {
-  state = { feed: [], sections: [] };
+  state = { feed: {}, sections: [] };
 
   componentDidMount() {
     feedData.forEach(source => {
@@ -34,11 +33,7 @@ class FeedContainer extends React.Component {
               const feed = updateFeed(prevState.feed, source, parsed);
               return {
                 feed,
-                sections: feed.map(section => ({
-                  ...section,
-                  data: section.articles,
-                  key: section.id,
-                })),
+                sections: feedToSections(feed),
               };
             });
           });
