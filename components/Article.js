@@ -6,10 +6,14 @@ const Article = ({
   description,
   mainColor,
   mainBackground,
+  separatorColor,
   onPress,
 }) => (
   <ListItem
-    containerStyle={{ backgroundColor: mainBackground }}
+    containerStyle={{
+      backgroundColor: mainBackground,
+      borderBottomColor: separatorColor,
+    }}
     titleStyle={{ color: mainColor }}
     title={title}
     subtitle={description}
