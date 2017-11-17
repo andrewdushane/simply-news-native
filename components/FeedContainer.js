@@ -20,7 +20,10 @@ const updateFeed = (feed, source, raw) => ({
   [source.id]: {
     ...(feed[source.id] || {}),
     ...source,
-    data: raw ? parseFeed(raw) : (feed[source.id] || {}).data || [],
+    data: (raw ? parseFeed(raw) : (feed[source.id] || {}).data || []).slice(
+      0,
+      12,
+    ),
     key: source.id,
     loading: !raw,
   },
