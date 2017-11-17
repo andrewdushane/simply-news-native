@@ -20,9 +20,7 @@ const getDatePublished = article =>
 const getLink = article =>
   selectN('link[0].$.href', article) || selectN('link[0]', article);
 
-const formatTitle = flowRight(scrubText, getTitle);
-
-const formatDescription = flowRight(
+const formatString = flowRight(
   text =>
     truncate(text, {
       length: 500,
@@ -30,8 +28,11 @@ const formatDescription = flowRight(
     }),
   trim,
   scrubText,
-  getDescription,
 );
+
+const formatTitle = flowRight(formatString, getTitle);
+
+const formatDescription = flowRight(formatString, getDescription);
 
 const formatDate = flowRight(
   date => date && moment(date).fromNow(),
