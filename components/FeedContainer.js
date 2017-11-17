@@ -6,6 +6,15 @@ import feedData from '../data/feed';
 import parseFeed from '../utils/parseFeed';
 import Feed from './Feed';
 
+const feedById = feedData.reduce(
+  (acc, source) => ({
+    ...acc,
+    [source.id]: source,
+  }),
+  {},
+);
+const getSourceData = id => feedById[id];
+
 const updateFeed = (feed, source, raw) => ({
   ...feed,
   [source.id]: {
@@ -25,6 +34,7 @@ class FeedContainer extends React.Component {
     this.state = { feed: {}, sections: [] };
     this.updateSource = this.updateSource.bind(this);
     this.updateAllSources = this.updateAllSources.bind(this);
+    this.updateById = this.updateById.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +52,7 @@ class FeedContainer extends React.Component {
           if (err) {
             return;
           }
+          console.log('parsed', parsed);
           this.setState(prevState => ({
             feed: updateFeed(prevState.feed, source, parsed),
           }));
@@ -58,13 +69,17 @@ class FeedContainer extends React.Component {
     });
   }
 
+  updateById(id) {
+    this.updateSource(getSourceData(id));
+  }
+
   render() {
     return (
       <Feed
         sections={feedToSections(this.state.feed)}
         colors={this.props.colors}
         openArticleDetail={this.props.openArticleDetail}
-        updateAllSources={this.updateAllSources}
+        update={this.updateById}
       />
     );
   }

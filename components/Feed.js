@@ -4,7 +4,7 @@ import { List } from 'react-native-elements';
 import Article from './Article';
 import SourceHeader from './SourceHeader';
 
-const Feed = ({ sections, colors, openArticleDetail, updateAllSources }) => (
+const Feed = ({ sections, colors, openArticleDetail, update }) => (
   <List containerStyle={{ marginTop: 0 }}>
     <SectionList
       sections={sections}
@@ -12,7 +12,7 @@ const Feed = ({ sections, colors, openArticleDetail, updateAllSources }) => (
         <Article {...item} {...colors} onPress={openArticleDetail(item.link)} />
       )}
       renderSectionHeader={({ section }) => (
-        <SourceHeader {...section} update={updateAllSources} {...colors} />
+        <SourceHeader {...section} update={() => { update(section.id); }} {...colors} />
       )}
     />
   </List>
