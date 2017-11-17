@@ -52,7 +52,6 @@ class FeedContainer extends React.Component {
           if (err) {
             return;
           }
-          console.log('parsed', parsed);
           this.setState(prevState => ({
             feed: updateFeed(prevState.feed, source, parsed),
           }));
