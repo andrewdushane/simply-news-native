@@ -133,13 +133,6 @@ const feed = [
     image_url: 'sports-illustrated.png',
   },
   {
-    id: 23,
-    name: 'TMZ',
-    rss_url: 'http://www.tmz.com/rss.xml',
-    homepage_url: 'http://www.tmz.com/',
-    image_url: 'tmz.png',
-  },
-  {
     id: 28,
     name: 'The Atlantic',
     rss_url: 'http://feeds.feedburner.com/TheAtlantic',
@@ -168,20 +161,6 @@ const feed = [
     image_url: 'the-verge.png',
   },
   {
-    id: 22,
-    name: 'Us Weekly',
-    rss_url: 'http://www.usmagazine.com/entertainment/atom',
-    homepage_url: 'http://www.usmagazine.com/entertainment/news',
-    image_url: 'us-weekly.png',
-  },
-  {
-    id: 36,
-    name: 'Vogue',
-    rss_url: 'https://www.vogue.com/feed/',
-    homepage_url: 'http://www.vogue.com/',
-    image_url: 'vogue.png',
-  },
-  {
     id: 10,
     name: 'Wall Street Journal',
     rss_url: 'http://www.wsj.com/xml/rss/3_7085.xml',
@@ -194,13 +173,6 @@ const feed = [
     rss_url: 'http://news.yahoo.com/rss/',
     homepage_url: 'http://news.yahoo.com/',
     image_url: 'yahoo.png',
-  },
-  {
-    id: 18,
-    name: 'Yahoo Sports',
-    rss_url: 'https://sports.yahoo.com/top/rss.xml',
-    homepage_url: 'http://sports.yahoo.com/',
-    image_url: 'yahoo-sports.png',
   },
   {
     id: 35,
@@ -237,13 +209,6 @@ const feed = [
       'http://api.foxsports.com/v1/rss?partnerKey=zBaFxRyGKCfxBagJG9b8pqLyndmvo7UU',
     homepage_url: 'http://www.foxsports.com/',
     image_url: 'fox-sports.jpg',
-  },
-  {
-    id: 17,
-    name: 'Hollywood Reporter',
-    rss_url: 'http://feeds.feedburner.com/thr/news',
-    homepage_url: 'http://www.hollywoodreporter.com/',
-    image_url: 'hollywood-reporter.png',
   },
   {
     id: 31,
