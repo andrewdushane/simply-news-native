@@ -3,5 +3,6 @@ export const getThemeColors = theme => ({
   secondaryBackground: 'black',
   mainColor: theme === 'light' ? 'black' : 'white',
   secondaryColor: 'white',
+  tertiaryColor: theme === 'light' ? '#555' : '#CCC',
   separatorColor: theme === 'light' ? '#DDD' : 'black',
 });

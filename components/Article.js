@@ -7,6 +7,7 @@ const Article = ({
   mainColor,
   mainBackground,
   separatorColor,
+  tertiaryColor,
   onPress,
 }) => (
   <ListItem
@@ -17,6 +18,7 @@ const Article = ({
     titleStyle={{ color: mainColor }}
     title={title}
     subtitle={description}
+    subtitleStyle={{ color: tertiaryColor }}
     onPress={onPress}
     titleNumberOfLines={3}
     subtitleNumberOfLines={5}
