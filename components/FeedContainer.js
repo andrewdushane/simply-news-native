@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import xml from 'react-native-xml2js';
-import { sortBy } from 'lodash';
+import { sortBy, flowRight } from 'lodash';
 import feedData from '../data/feed';
 import parseFeed from '../utils/parseFeed';
 import Feed from './Feed';
@@ -29,7 +29,12 @@ const updateFeed = (feed, source, raw) => ({
   },
 });
 
-const feedToSections = feed => sortBy(Object.values(feed), ['name']);
+const sortByName = feed => sortBy(feed, ['name']);
+
+const removeEmptySources = feed =>
+  feed.filter(({ data }) => data && data.length > 0);
+
+const feedToSections = flowRight(sortByName, removeEmptySources, Object.values);
 
 class FeedContainer extends React.Component {
   constructor(props) {
