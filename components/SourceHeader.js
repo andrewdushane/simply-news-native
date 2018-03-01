@@ -2,13 +2,20 @@ import React from 'react';
 import { ListItem, Icon } from 'react-native-elements';
 import Spin from './Spin';
 
-const SourceHeader = ({ name, loading, update, separatorColor }) => (
+const SourceHeader = ({
+  name,
+  loading,
+  update,
+  separatorColor,
+  secondaryBackground,
+  secondaryColor,
+}) => (
   <ListItem
     containerStyle={{
-      backgroundColor: 'black',
+      backgroundColor: secondaryBackground,
       borderBottomColor: separatorColor,
     }}
-    titleStyle={{ color: 'white' }}
+    titleStyle={{ color: secondaryColor, fontWeight: 'bold' }}
     title={name}
     rightIcon={
       loading ? (

@@ -15,7 +15,7 @@ const Article = ({
       backgroundColor: mainBackground,
       borderBottomColor: separatorColor,
     }}
-    titleStyle={{ color: mainColor }}
+    titleStyle={{ color: mainColor, paddingBottom: 2, fontWeight: 'bold' }}
     title={title}
     subtitle={description}
     subtitleStyle={{ color: tertiaryColor }}

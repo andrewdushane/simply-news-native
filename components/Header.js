@@ -4,21 +4,22 @@ import { Header as NativeHeader } from 'react-native-elements';
 const Header = ({
   theme,
   toggleTheme,
-  colors: { mainBackground, mainColor },
+  colors: { mainBackground, mainColor, headerBackground },
 }) => (
   <NativeHeader
-    outerContainerStyles={{ backgroundColor: mainBackground }}
+    outerContainerStyles={{ backgroundColor: headerBackground, marginTop: 20 }}
+    statusBarProps={{ barStyle: 'dark-content' }}
+    backgroundColor={headerBackground}
     centerComponent={{
       text: 'Simply News',
       style: {
         color: mainColor,
-        backgroundColor: mainBackground,
+        backgroundColor: headerBackground,
+        fontWeight: 'bold',
+        fontSize: 24,
+        marginTop: 20,
+        paddingTop: 20,
       },
-    }}
-    rightComponent={{
-      icon: theme === 'light' ? 'brightness-2' : 'brightness-5',
-      onPress: toggleTheme,
-      color: mainColor,
     }}
   />
 );

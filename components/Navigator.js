@@ -3,6 +3,7 @@ import { WebView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import selectN from 'selectn';
 import Home from './Home';
+import { getThemeColors } from '../utils/styles';
 
 const Navigator = StackNavigator(
   {
@@ -20,7 +21,7 @@ const Navigator = StackNavigator(
       ),
       path: '/article-view',
       navigationOptions: {
-        headerTintColor: 'black',
+        headerTintColor: getThemeColors().mainColor,
       },
     },
   },
