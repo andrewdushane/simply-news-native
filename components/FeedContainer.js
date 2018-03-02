@@ -4,7 +4,6 @@ import xml from 'react-native-xml2js';
 import { sortBy, flowRight } from 'lodash';
 import feedData from '../data/feed';
 import parseFeed from '../utils/parseFeed';
-import Feed from './Feed';
 
 const feedById = feedData.reduce(
   (acc, source) => ({
@@ -112,13 +111,7 @@ class FeedContainer extends React.Component {
 
   render() {
     const sections = feedToSections(this.state.feed);
-    return sections.length > 0 ? (
-      <Feed
-        sections={sections}
-        colors={this.props.colors}
-        openArticleDetail={this.props.openArticleDetail}
-      />
-    ) : null;
+    return this.props.children({ sections });
   }
 }
 

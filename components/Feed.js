@@ -4,7 +4,7 @@ import { List } from 'react-native-elements';
 import Article from './Article';
 import SourceHeader from './SourceHeader';
 
-const Feed = ({ sections, colors, openArticleDetail, update }) => (
+const Feed = ({ sections, colors, openArticleDetail }) => (
   <List containerStyle={{ marginTop: 0 }}>
     <SectionList
       sections={sections}
