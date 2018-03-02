@@ -12,13 +12,7 @@ const Feed = ({ sections, colors, openArticleDetail, update }) => (
         <Article {...item} {...colors} onPress={openArticleDetail(item.link)} />
       )}
       renderSectionHeader={({ section }) => (
-        <SourceHeader
-          {...section}
-          update={() => {
-            update(section.id);
-          }}
-          {...colors}
-        />
+        <SourceHeader {...section} {...colors} />
       )}
     />
   </List>

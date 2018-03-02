@@ -1,14 +1,14 @@
 import React from 'react';
 import { ListItem, Icon } from 'react-native-elements';
-import Spin from './Spin';
 
 const SourceHeader = ({
   name,
-  loading,
-  update,
   separatorColor,
   secondaryBackground,
   secondaryColor,
+  toggle,
+  expanded,
+  expandable,
 }) => (
   <ListItem
     containerStyle={{
@@ -18,14 +18,14 @@ const SourceHeader = ({
     titleStyle={{ color: secondaryColor, fontWeight: 'bold' }}
     title={name}
     rightIcon={
-      loading ? (
-        <Spin>
-          <Icon name="loop" color="white" onPress={update} />
-        </Spin>
-      ) : (
-        <Icon name="loop" color="white" onPress={update} />
-      )
+      <Icon
+        name={`expand-${expanded ? 'less' : 'more'}`}
+        color={secondaryColor}
+        onPress={toggle}
+        underlayColor="transparent"
+      />
     }
+    hideChevron={!expandable}
   />
 );
 

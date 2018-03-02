@@ -15,26 +15,36 @@ const feedById = feedData.reduce(
 );
 const getSourceData = id => feedById[id];
 
-const updateFeed = (feed, source, raw) => ({
+const updateFeed = (feed, source, raw, initialSourceState = {}) => ({
   ...feed,
   [source.id]: {
+    ...initialSourceState,
     ...(feed[source.id] || {}),
     ...source,
-    data: (raw ? parseFeed(raw) : (feed[source.id] || {}).data || []).slice(
-      0,
-      12,
-    ),
-    key: source.id,
+    data: raw ? parseFeed(raw) : (feed[source.id] || {}).data || [],
     loading: !raw,
   },
 });
+
+const expandContract = feed =>
+  feed.map(({ expanded, data, ...rest }) => ({
+    ...rest,
+    expanded,
+    expandable: data.length > 3,
+    data: expanded ? data : data.slice(0, 3),
+  }));
 
 const sortByName = feed => sortBy(feed, ['name']);
 
 const removeEmptySources = feed =>
   feed.filter(({ data }) => data && data.length > 0);
 
-const feedToSections = flowRight(sortByName, removeEmptySources, Object.values);
+const feedToSections = flowRight(
+  expandContract,
+  sortByName,
+  removeEmptySources,
+  Object.values,
+);
 
 class FeedContainer extends React.Component {
   constructor(props) {
@@ -43,15 +53,23 @@ class FeedContainer extends React.Component {
     this.updateSource = this.updateSource.bind(this);
     this.updateAllSources = this.updateAllSources.bind(this);
     this.updateById = this.updateById.bind(this);
+    this.toggleSource = this.toggleSource.bind(this);
   }
 
   componentDidMount() {
-    this.updateAllSources();
+    this.updateAllSources(true);
   }
 
-  updateSource(source) {
+  updateSource(source, initialize) {
+    const initialSourceState = initialize
+      ? {
+          key: source.id,
+          expanded: false,
+          toggle: () => this.toggleSource(source.id),
+        }
+      : {};
     this.setState(prevState => ({
-      feed: updateFeed(prevState.feed, source),
+      feed: updateFeed(prevState.feed, source, false, initialSourceState),
     }));
     axios
       .get(source.rss_url)
@@ -70,9 +88,9 @@ class FeedContainer extends React.Component {
       });
   }
 
-  updateAllSources() {
+  updateAllSources(initialize) {
     feedData.forEach(source => {
-      this.updateSource(source);
+      this.updateSource(source, initialize);
     });
   }
 
@@ -80,15 +98,27 @@ class FeedContainer extends React.Component {
     this.updateSource(getSourceData(id));
   }
 
+  toggleSource(id) {
+    this.setState(prevState => ({
+      feed: {
+        ...prevState.feed,
+        [id]: {
+          ...prevState.feed[id],
+          expanded: !prevState.feed[id].expanded,
+        },
+      },
+    }));
+  }
+
   render() {
-    return (
+    const sections = feedToSections(this.state.feed);
+    return sections.length > 0 ? (
       <Feed
-        sections={feedToSections(this.state.feed)}
+        sections={sections}
         colors={this.props.colors}
         openArticleDetail={this.props.openArticleDetail}
-        update={this.updateById}
       />
-    );
+    ) : null;
   }
 }
 
