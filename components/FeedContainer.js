@@ -5,6 +5,8 @@ import { sortBy, flowRight } from 'lodash';
 import feedData from '../data/feed';
 import parseFeed from '../utils/parseFeed';
 
+const sourceIds = feedData.map(({ id }) => id);
+
 const feedById = feedData.reduce(
   (acc, source) => ({
     ...acc,
@@ -45,10 +47,14 @@ const feedToSections = flowRight(
   Object.values,
 );
 
+const doneLoading = sourceId => prevState => ({
+  loadingSources: prevState.loadingSources.filter(id => id !== sourceId),
+});
+
 class FeedContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { feed: {}, sections: [] };
+    this.state = { feed: {}, loadingSources: [] };
     this.updateSource = this.updateSource.bind(this);
     this.updateAllSources = this.updateAllSources.bind(this);
     this.updateById = this.updateById.bind(this);
@@ -75,19 +81,27 @@ class FeedContainer extends React.Component {
       .then(({ data }) => {
         xml.parseString(data, (err, parsed) => {
           if (err) {
+            this.setState(doneLoading(source.id));
             return;
           }
           this.setState(prevState => ({
             feed: updateFeed(prevState.feed, source, parsed),
+            loadingSources: prevState.loadingSources.filter(
+              id => id !== source.id,
+            ),
           }));
         });
       })
       .catch(e => {
+        this.setState(doneLoading(source.id));
         return;
       });
   }
 
   updateAllSources(initialize) {
+    this.setState({
+      loadingSources: sourceIds,
+    });
     feedData.forEach(source => {
       this.updateSource(source, initialize);
     });
@@ -110,8 +124,11 @@ class FeedContainer extends React.Component {
   }
 
   render() {
-    const sections = feedToSections(this.state.feed);
-    return this.props.children({ sections });
+    return this.props.children({
+      sections: feedToSections(this.state.feed),
+      refresh: this.updateAllSources,
+      loading: this.state.loadingSources.length > 0,
+    });
   }
 }
 

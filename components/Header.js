@@ -1,9 +1,11 @@
 import React from 'react';
-import { Header as NativeHeader } from 'react-native-elements';
+import { Header as NativeHeader, Icon } from 'react-native-elements';
+import Spin from './Spin';
 
 const Header = ({
   theme,
-  toggleTheme,
+  refresh,
+  loading,
   colors: { mainBackground, mainColor, headerBackground },
 }) => (
   <NativeHeader
@@ -21,6 +23,25 @@ const Header = ({
         paddingTop: 20,
       },
     }}
+    rightComponent={
+      loading ? (
+        <Spin>
+          <Icon
+            name="loop"
+            color={mainColor}
+            onPress={refresh}
+            underlayColor="transparent"
+          />
+        </Spin>
+      ) : (
+        <Icon
+          name="loop"
+          color={mainColor}
+          onPress={refresh}
+          underlayColor="transparent"
+        />
+      )
+    }
   />
 );
 

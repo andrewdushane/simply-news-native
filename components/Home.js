@@ -22,12 +22,14 @@ export default class Home extends React.Component {
     const colors = getThemeColors(this.state.theme);
     return (
       <FeedContainer>
-        {({ sections }) => (
+        {({ sections, refresh, loading }) => (
           <View>
             <Header
               theme={this.state.theme}
               toggleTheme={this.toggleTheme}
               colors={colors}
+              refresh={refresh}
+              loading={loading}
             />
             <Feed
               sections={sections}
