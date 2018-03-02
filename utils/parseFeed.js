@@ -55,7 +55,14 @@ const getArticleInfo = article => ({
   key: createUniqueKey(article),
 });
 
+const removeDuplicateEntries = articles =>
+  articles.filter(
+    (article, index, list) =>
+      index === list.findIndex(a => a.key === article.key),
+  );
+
 export default flowRight(
+  removeDuplicateEntries,
   (rawList = []) => rawList.map(getArticleInfo),
   getRawList,
 );
