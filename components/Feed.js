@@ -5,7 +5,7 @@ import Article from './Article';
 import SourceHeader from './SourceHeader';
 
 const Feed = ({ sections, colors, openArticleDetail }) => (
-  <List containerStyle={{ marginTop: 0 }}>
+  <List containerStyle={{ marginTop: 0, paddingBottom: 180 }}>
     <SectionList
       sections={sections}
       renderItem={({ item }) => (

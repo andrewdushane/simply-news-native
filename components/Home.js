@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import Header from './Header';
 import FeedContainer from './FeedContainer';
 import Feed from './Feed';
+import Loading from './Loading';
 import { getThemeColors } from '../utils/styles';
 
 export default class Home extends React.Component {
@@ -22,23 +23,27 @@ export default class Home extends React.Component {
     const colors = getThemeColors(this.state.theme);
     return (
       <FeedContainer>
-        {({ sections, refresh, loading }) => (
-          <View>
-            <Header
-              theme={this.state.theme}
-              toggleTheme={this.toggleTheme}
-              colors={colors}
-              refresh={refresh}
-              loading={loading}
-            />
-            <Feed
-              sections={sections}
-              colors={colors}
-              openArticleDetail={uri => () =>
-                this.props.navigation.navigate('ArticleView', { uri })}
-            />
-          </View>
-        )}
+        {({ sections, refresh, loading }) =>
+          loading ? (
+            <Loading color={colors.mainColor} />
+          ) : (
+            <View>
+              <Header
+                theme={this.state.theme}
+                toggleTheme={this.toggleTheme}
+                colors={colors}
+                refresh={refresh}
+                loading={loading}
+              />
+              <Feed
+                sections={sections}
+                colors={colors}
+                openArticleDetail={uri => () =>
+                  this.props.navigation.navigate('ArticleView', { uri })}
+              />
+            </View>
+          )
+        }
       </FeedContainer>
     );
   }
